@@ -1,12 +1,13 @@
 from __future__ import absolute_import
 import os
 from celery import Celery
+from django.conf import settings
 
 
 # set the default Django settings modules for the 'celery proejct'
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celeryProject.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celeryPractice.settings')
 
-app = Celery('celeryProject')
+app = Celery('celeryPractice')
 
 # using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.

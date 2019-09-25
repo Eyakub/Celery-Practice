@@ -126,3 +126,13 @@ STATIC_URL = '/static/'
 CELERY_RESULT_BACKEND = 'django-db'
 
 CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'example@gmail.com' 
+EMAIL_HOST_PASSWORD = 'example'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
