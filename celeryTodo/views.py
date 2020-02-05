@@ -27,7 +27,9 @@ class GenerateRandomUserView(FormView):
     form_class = GenerateRandomUserForm
 
     def form_valid(self, form):
+        print('inside form validation')
         total = form.cleaned_data.get('total')
-        create_random_user_accounts.delay(total)
+        print('total->', total)
+        create_random_user_accounts(total)
         messages.success(self.request, 'We are generating your random users! Wait a moment and refresh this page.')
         return redirect('users_list')

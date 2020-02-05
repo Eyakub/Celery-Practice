@@ -53,9 +53,11 @@ def send_email_task():
 
 @shared_task
 def create_random_user_accounts(total):
+    print('inside create random user')
     for i in range(total):
         username = 'user_{}'.format(get_random_string(10, string.ascii_letters))
         email = '{}@example.com'.format(username)
-        password = get_random_string(50)
+        password = get_random_string(10)
         User.objects.create_user(username=username, email=email, password=password)
+        print('user created ', i)
     return '{} random users created with success!'.format(total)
