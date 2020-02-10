@@ -7,7 +7,9 @@ from django.conf import settings
 # set the default Django settings modules for the 'celery proejct'
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celeryPractice.settings')
 
-app = Celery('celeryPractice')
+app = Celery('celeryPractice', 
+                broker='pyampq://admin@localhost//',
+                backend='pyampq://admin@localhost//')
 
 # using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
@@ -17,6 +19,8 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # load task modules from all registered Django app configs
 app.autodiscover_tasks()
+
+# 
 
 @app.task(bind=True)
 def debug_task(self):

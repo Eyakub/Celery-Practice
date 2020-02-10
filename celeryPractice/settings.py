@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import .celeryPractice.env import *
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -134,7 +134,7 @@ CELERY_TASK_SERIALIZER = 'json'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'example@gmail.com' 
-EMAIL_HOST_PASSWORD = 'example'
+EMAIL_HOST_USER = 'eyakubsorkar@gmail.com' 
+EMAIL_HOST_PASSWORD = gmail_pass
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False

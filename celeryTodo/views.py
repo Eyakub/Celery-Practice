@@ -29,7 +29,13 @@ class GenerateRandomUserView(FormView):
     def form_valid(self, form):
         print('inside form validation')
         total = form.cleaned_data.get('total')
-        print('total->', total)
-        create_random_user_accounts(total)
+
+        """
+        instead of calling the create_random_user_account we've
+        called with .delay(), this way we are instructing celery
+        to execute this function in the background
+        then django keep processing my view GenerateRandomUserView
+        """
+        create_random_user_accounts.delay(total)
         messages.success(self.request, 'We are generating your random users! Wait a moment and refresh this page.')
         return redirect('users_list')
