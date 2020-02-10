@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import .celeryPractice.env import *
+from .env import *
+from celery.schedules import crontab
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -138,3 +140,10 @@ EMAIL_HOST_USER = 'eyakubsorkar@gmail.com'
 EMAIL_HOST_PASSWORD = gmail_pass
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+CELERY_BEAT_SCHEDULE = {
+    'trigger_email': {
+        'task': 'app1.tasks.trigger_email',
+        'schedule': crontab(minute=1),
+    }
+}

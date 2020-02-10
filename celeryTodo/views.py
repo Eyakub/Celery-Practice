@@ -7,6 +7,7 @@ from django.views.generic.edit import FormView
 from django.http import HttpResponse
 from . import tasks
 from django.views.generic.list import ListView
+from django.core.mail import send_mail
 
 from .forms import GenerateRandomUserForm
 from .tasks import create_random_user_accounts
@@ -39,3 +40,14 @@ class GenerateRandomUserView(FormView):
         create_random_user_accounts.delay(total)
         messages.success(self.request, 'We are generating your random users! Wait a moment and refresh this page.')
         return redirect('users_list')
+
+
+class SendMailView(View):
+    def send_mail_celery(self):
+        send_mail(
+            'Celery test',
+            'Celery schedule tasking',
+            'eyakubsorkar@gmail.com',
+            ['eyakub.tryonyx@gmail.com',],
+            fail_silently=False,
+        )

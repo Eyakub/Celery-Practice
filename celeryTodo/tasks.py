@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
-from celery import shared_task
+from celery import shared_task, task
+from celery.schedules import crontab
 from time import sleep
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
@@ -61,3 +62,10 @@ def create_random_user_accounts(total):
         User.objects.create_user(username=username, email=email, password=password)
         print('user created ', i)
     return '{} random users created with success!'.format(total)
+
+
+@task
+def trigger_email():
+    send_email_task()
+
+
