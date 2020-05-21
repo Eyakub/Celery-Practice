@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from feedback.views import FeedbackView
+from photos.views import PhotoView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('celeryTodo.urls'))
+    # path('', include('celeryTodo.urls'))
+    path('feedback/', FeedbackView.as_view(), name='feedback'),
+    path('', PhotoView.as_view(), name="home")
 ]

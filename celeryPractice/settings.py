@@ -11,12 +11,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from .env import *
+# from getenv import env
 from celery.schedules import crontab
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -27,7 +26,7 @@ SECRET_KEY = 'iv2ze)t69c(8^*_xxi!9mz5*uw8&gc=&+(r@yz235!+2l^62)n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -40,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'celeryTodo',
+    # 'celeryTodo',
     'django_celery_results',
+    'feedback',
+    'photos',
 ]
 
 MIDDLEWARE = [
@@ -127,23 +128,22 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-CELERY_RESULT_BACKEND = 'django-db'
-
-CELERY_CACHE_BACKEND = 'django-cache'
-CELERY_BROKER_URL = 'amqp://localhost'
-CELERY_ACCEPT_CONTENT = ['json']
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Asia'
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'eyakubsorkar@gmail.com' 
-EMAIL_HOST_PASSWORD = gmail_pass
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+# Emails
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+DEFAULT_FROM_EMAIL = 'eyakubsorkar@gmail.com'
 
-CELERY_BEAT_SCHEDULE = {
-    'trigger_email': {
-        'task': 'app1.tasks.trigger_email',
-        'schedule': crontab(minute=1),
-    }
-}
+# CELERY_BEAT_SCHEDULE = {
+#     'trigger_email': {
+#         'task': 'app1.tasks.trigger_email',
+#         'schedule': crontab(minute=1),
+#     }
+# }

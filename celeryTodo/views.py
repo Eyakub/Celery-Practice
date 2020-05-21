@@ -42,12 +42,12 @@ class GenerateRandomUserView(FormView):
         return redirect('users_list')
 
 
-class SendMailView(View):
-    def send_mail_celery(self):
-        send_mail(
-            'Celery test',
-            'Celery schedule tasking',
-            'eyakubsorkar@gmail.com',
-            ['eyakub.tryonyx@gmail.com',],
-            fail_silently=False,
-        )
+# class SendMailView(view):
+#     def send_mail_celery(self):
+#         send_mail(
+#             'Celery test',
+#             'Celery schedule tasking',
+#             'eyakubsorkar@gmail.com',
+#             ['eyakub.tryonyx@gmail.com',],
+#             fail_silently=False,
+#         )
